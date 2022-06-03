@@ -45,3 +45,14 @@ router.post('/', (request, response) => {
     })                    
 
     })
+
+    //delete student
+    router.delete('/:roll_no', (request, response) => {
+        const { roll_no } = request.params
+      
+        const statement = `DELETE FROM student WHERE roll_no=?;`
+      
+        db.pool.query(statement, [roll_no], (error, student) => {
+          response.send(utils.createResult(error, student))
+        })
+      })
