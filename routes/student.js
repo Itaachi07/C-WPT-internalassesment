@@ -32,4 +32,16 @@ router.post('/', (request, response) => {
       })                  
   })
 
-  //
+  //update student info
+  router.get('/:roll_no',(request, response) => {
+    const { roll_no } = request.params
+    const {Class, division} = request.body
+    
+    const statement = `update student set class=?,
+                        division =?
+                        where roll_no =?;`
+    db.pool.query(statement, [Class, division, roll_no], (error,student) => {
+        response.send(utils.createResult(error, student))   
+    })                    
+
+    })
