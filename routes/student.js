@@ -58,11 +58,21 @@ router.post('/', (request, response) => {
       })
 
     // Fetch all students of particular class
-    router.get('/:roll_no', (request, response) => {
-        const { roll_no } = request.params
+    router.get('Class/:Cls', (request, response) => {
+        const { Cls } = request.params
         const statement = `select * from student where class =?`
         db.pool.query(statement, [Cls], (error, student) => {
             response.send(utils.createResult(error, student))
           })
     }) 
-       
+    
+    //Fetch all students of particular birth year
+    router.get('/year/:yr', (request, response) => {
+        const { yr } = request.params
+        const statement = `select * from student where year(dateofbirth)=?;`
+        db.pool.query(statement, [yr], (error, student) => {
+            response.send(utils.createResult(error, student))
+          })
+
+    }) 
+    module.exports = router
