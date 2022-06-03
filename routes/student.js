@@ -1,7 +1,10 @@
+
 const express = require('express')
 const db = require('../db')
 const utils = require('../utils')
 const router = express.Router()
+
+//Add new Student
 router.post('/', (request, response) => {
     const { roll_no, name, Class, division, dateofbirth, parent_mobile_no } =
       request.body
@@ -18,3 +21,15 @@ router.post('/', (request, response) => {
       }
     )
   })
+
+  //get student by roll no
+  router.get('/:roll_no',(request, response) => {
+      const { roll_no } = request.params
+      const statement= `select roll_no , name, class, division ,dateofbirth, parent_mobile_no
+                        from student where roll_no=?`
+      db.pool.query(student, [roll_no], (error,student) => {
+          response.send(utils.createResult(error,student))
+      })                  
+  })
+
+  //
