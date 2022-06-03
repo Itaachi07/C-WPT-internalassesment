@@ -56,3 +56,13 @@ router.post('/', (request, response) => {
           response.send(utils.createResult(error, student))
         })
       })
+
+    // Fetch all students of particular class
+    router.get('/:roll_no', (request, response) => {
+        const { roll_no } = request.params
+        const statement = `select * from student where class =?`
+        db.pool.query(statement, [Cls], (error, student) => {
+            response.send(utils.createResult(error, student))
+          })
+    }) 
+       
