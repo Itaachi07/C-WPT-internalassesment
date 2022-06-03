@@ -1,6 +1,4 @@
---create Database--
-
-create databsse std;
+create database std;
 
 use std;
 
